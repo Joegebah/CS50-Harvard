@@ -34,19 +34,7 @@ int n;
                 a++;
             }
             while (a <= i);
-
-            printf("%c", WHITE);
-            printf("%c", WHITE);
-            int j = 0;
-            do
-            {
-                printf("%c", HASH);
-                j++;
-            }
-            while (j <= i);
             printf("\n");
-
-
         }
 
 
