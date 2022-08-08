@@ -27,6 +27,7 @@ int main(void) {
     // Print total number of coins to give the customer
     printf("%i\n", coins);
 }
+
 int get_cents(void) {
     int cents;
     do
@@ -34,25 +35,32 @@ int get_cents(void) {
         cents = get_int("Change owed: ");
     }
     while (cents < 0);
+
     return cents;
 }
+
 int calculate_quarters(int cents) {
     int n;
     n = cents / 25;
+
     return n;
 }
+
 int calculate_dimes(int cents) {
     int n;
     n = cents / 10;
+
     return n;
 }
+
 int calculate_nickels(int cents) { 
     int n;
     n = cents / 5;
+
     return n;
 }
+
 int calculate_pennies(int cents) {
-    int n;
-    n = cents;
-    return n;
+
+    return cents;
 }
