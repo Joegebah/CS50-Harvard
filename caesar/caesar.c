@@ -40,6 +40,7 @@ bool only_digits(string s) {
 
         if (hasOnlyDigits) return true;
     }
+    
     return false;
 }
 
