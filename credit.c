@@ -3,15 +3,12 @@
 int main(void)
 {
     long n;
-    //The variable productDigitSum should add all digits, which result from the products, together
     long productDigitSum = 0;
-    //The variable productSum should add all products together
     long productSum = 0;
-    //The variable sumOFNotMultiplier should add all numbers which weren't used for multiplying
     long sumOfNotMultiplier = 0;
-    //Check number as descripted in Luhn's Algorithm
     long check;
     bool creditCardIsValid = false;
+
     while (!creditCardIsValid) {
         do {
             n = get_long("please enter your credit card number: \n");
