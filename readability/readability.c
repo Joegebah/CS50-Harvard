@@ -2,16 +2,21 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h> 
+
 int count_letters(string s);
 int count_words(string s);
 int count_sentences(string s);
+
 int main(void) {
+
     string text = get_string("Please input text: ");
+
     double index;
     double letters = count_letters(text);
     double words = count_words(text);
     double sentences = count_sentences(text);
     index = round(0.0588 * ((letters / words) * 100.0) - (0.296 * ((sentences / words) * 100.0)) - 15.8);
+
     if (index > 16) {
         printf("Grade 16+");
     }
@@ -21,8 +26,8 @@ int main(void) {
     else {
         printf("Grade %0.f", index);
     }
-
 }
+
 int count_letters(string s) {
     int numberOfLetters = 0;
     for (int i = 0; i < strlen(s); i++) {
@@ -30,8 +35,10 @@ int count_letters(string s) {
             numberOfLetters++;
         }
     }
+
     return numberOfLetters;
 }
+
 int count_words(string s) {
     int numberOfWords;
     if (s[0] >= 'a' && s[0] <= 'z' || s[0] >= 'A' && s[0] <= 'Z') {
@@ -45,8 +52,10 @@ int count_words(string s) {
             numberOfWords++;
         }
     }
+
     return numberOfWords;
 }
+
 int count_sentences(string s) {
     int numberOfSentences = 0;
     for (int i = 0; i < strlen(s); i++) {
@@ -54,5 +63,6 @@ int count_sentences(string s) {
             numberOfSentences++;
         }
     }
+
     return numberOfSentences;
 }
