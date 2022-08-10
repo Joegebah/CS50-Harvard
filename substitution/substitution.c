@@ -32,9 +32,8 @@ int main(int argc, string argv[]) {
     }
     if (inputIsValid) {
         string plain = get_string("plain text: ");
-
         printf("ciphertext: ");
-        
+
         for (int i = 0; i < plain[i]; i++) {
             printf("%c", rotate(plain[i], key));
         }
