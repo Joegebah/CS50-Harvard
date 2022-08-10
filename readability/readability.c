@@ -7,8 +7,7 @@ int count_letters(string s);
 int count_words(string s);
 int count_sentences(string s);
 
-int main(void) {
-
+int main(void) {    
     string text = get_string("Please input text: ");
 
     double index;
@@ -47,6 +46,7 @@ int count_words(string s) {
     else {
         numberOfWords = 0;
     }
+    
     for (int i = 0; i < strlen(s); i++) {
         if (s[i] == ' ') {
             numberOfWords++;
