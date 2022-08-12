@@ -24,25 +24,27 @@ int main(int argc, string argv[]) {
         for (int i = 0; i < strlen(plain); i++) {
             printf("%c", rotate(plain[i], key));
         }
+        printf("\n");
 
         return 0;
     }
     else {
-        printf("Usage: ./caesar key");
+        printf("Usage: ./caesar key\n");
 
         return 1;
     }
 }
 
 bool only_digits(string s) {
+    bool hasOnlyDigits = false;
+
     for (int i = 0; i < strlen(s); i++) {
 
-        bool hasOnlyDigits = s[i] >= '0' && s[i] <= '9';
+        hasOnlyDigits = s[i] >= '0' && s[i] <= '9';
+        return hasOnlyDigits;
 
-        if (hasOnlyDigits) return true;
     }
-    
-    return false;
+    return hasOnlyDigits;
 }
 
 char rotate(char c, int i) {
