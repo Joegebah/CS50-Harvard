@@ -13,7 +13,7 @@ int main(int argc, string argv[]) {
     bool isNotValidAmountOfArguments = argc != 2;
 
     if (isNotValidAmountOfArguments) {
-        printf("Usage: Please enter a 26 a letter long string like ./caesar key\n");
+        printf("Usage: ./substitution key\n");
 
         return 1;
     }
@@ -26,10 +26,11 @@ int main(int argc, string argv[]) {
     bool inputIsInvalid = inputIsValid == false;
 
     if (inputIsInvalid) {
-        printf("Usage: Please enter a 26 a letter long string like ./caesar key\n");
+        printf("Usage: Please enter a 26 a letter long string like ./substitution key\n");
 
         return 1;
     }
+
     if (inputIsValid) {
         string plain = get_string("plain text: ");
         printf("ciphertext: ");
@@ -60,15 +61,14 @@ bool hasDigits(string s) {
 bool hasOnlyDefiniteLetters(string s) {
     for (int i = 0; i < strlen(s); i++) {
         for (int j = 0; j < strlen(s); j++) {
-            if (i != j) {
-                if (s[i] == s[j]) {
+            bool letterIsNotDefinite = (i != j) && (s[i] == s[j]);
+            if (letterIsNotDefinite)  {
 
                 return false;
-                }
             }
         }
     }
-    
+
     return true;
 }
 
@@ -87,9 +87,8 @@ char rotate(char c, string s) {
             i++;
         }
         c = s[i];
-
-        return c;
     }
+
     if (isInUpperAlphabet) {
 
         int i = 0;
@@ -100,8 +99,6 @@ char rotate(char c, string s) {
             i++;
         }
         c = s[i];
-
-        return c;
     }
 
     return c;
