@@ -22,10 +22,9 @@ int main(int argc, string argv[]) {
     bool hasRequiredLength = hasLength(key);
     bool hasDigitCharacters = hasDigits(key);
     bool hasDefiniteLetters = hasOnlyDefiniteLetters(key);
-    bool inputIsValid = (hasRequiredLength == true) && (hasDigitCharacters == false) && (hasDefiniteLetters == true);
-    bool inputIsInvalid = inputIsValid == false;
+    bool inputIsValid = hasRequiredLength && !hasDigitCharacters && hasDefiniteLetters;
 
-    if (inputIsInvalid) {
+    if (!inputIsValid) {
         printf("Usage: Please enter a 26 a letter long string like ./substitution key\n");
 
         return 1;
@@ -52,7 +51,7 @@ bool hasLength(string s) {
 
 bool hasDigits(string s) {
     for (int i = 0; i < strlen(s); i++) {
-        if (s[i] >= '1' && s[i] <= '9') return true;
+        if (s[i] >= '0' && s[i] <= '9') return true;
     }
     
     return false;
