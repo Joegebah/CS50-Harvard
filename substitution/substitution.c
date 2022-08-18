@@ -1,12 +1,12 @@
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
+#include <ctype.h>
 
-bool hasLength(string s);
-bool hasDigits(string s);
-bool hasOnlyDefiniteLetters(string s);
-char rotate(char c, string s);
+bool hasLength(string key);
+bool hasDigits(string key);
+bool hasOnlyDefiniteLetters(string key);
+char rotate(char plaintextCharToBeModified, string key);
 
 int main(int argc, string argv[]) {
 
@@ -43,24 +43,24 @@ int main(int argc, string argv[]) {
     }
 }   
 
-bool hasLength(string s) {
-    if (strlen(s) == 26) return true;
+bool hasLength(string key) {
+    if (strlen(key) == 26) return true;
     
     return false;
 }
 
-bool hasDigits(string s) {
-    for (int i = 0; i < strlen(s); i++) {
-        if (s[i] >= '0' && s[i] <= '9') return true;
+bool hasDigits(string key) {
+    for (int i = 0; i < strlen(key); i++) {
+        if (key[i] >= '0' && key[i] <= '9') return true;
     }
     
     return false;
 }
 
-bool hasOnlyDefiniteLetters(string s) {
-    for (int i = 0; i < strlen(s); i++) {
-        for (int j = 0; j < strlen(s); j++) {
-            bool letterIsNotDefinite = (i != j) && (s[i] == s[j]);
+bool hasOnlyDefiniteLetters(string key) {
+    for (int i = 0; i < strlen(key); i++) {
+        for (int j = 0; j < strlen(key); j++) {
+            bool letterIsNotDefinite = (i != j) && (key[i] == key[j]);
             if (letterIsNotDefinite)  {
 
                 return false;
@@ -71,21 +71,21 @@ bool hasOnlyDefiniteLetters(string s) {
     return true;
 }
 
-char rotate(char c, string s) {
+char rotate(char plaintextCharToBeModified, string key) {
 
-    bool isInLowerAlphabet = (c >= 'a') && (c <= 'z');
-    bool isInUpperAlphabet = (c >= 'A') && (c <= 'Z');
+    bool isInLowerAlphabet = (plaintextCharToBeModified >= 'a') && (plaintextCharToBeModified <= 'z');
+    bool isInUpperAlphabet = (plaintextCharToBeModified >= 'A') && (plaintextCharToBeModified <= 'Z');
 
     if (isInLowerAlphabet) {
 
         int i = 0;
         char lowerAlphabetRotator = 'a';
 
-        while (c != lowerAlphabetRotator) {
+        while (plaintextCharToBeModified != lowerAlphabetRotator) {
             lowerAlphabetRotator++;
             i++;
         }
-        c = s[i];
+        plaintextCharToBeModified = tolower(key[i]);
     }
 
     if (isInUpperAlphabet) {
@@ -93,12 +93,12 @@ char rotate(char c, string s) {
         int i = 0;
         char lowerAlphabetRotator = 'A';
 
-        while (c != lowerAlphabetRotator) {
+        while (plaintextCharToBeModified != lowerAlphabetRotator) {
             lowerAlphabetRotator++;
             i++;
         }
-        c = s[i];
+        plaintextCharToBeModified = toupper(key[i]);
     }
 
-    return c;
+    return plaintextCharToBeModified;
 }
