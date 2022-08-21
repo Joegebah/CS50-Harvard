@@ -92,7 +92,6 @@ void print_winner(void) {
             bool hasFoundMaxVotes = candidates[i].votes == maximumVote;
 
             if (hasFoundMaxVotes) {
-                printf("%i", candidates[i].votes);
                 printf("%s \n", candidates[i].name);
             }
             i++;
