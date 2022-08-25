@@ -63,7 +63,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
                 }
 
                 widthIterator++;
-                bool widthIsIterated = widthIterator == 1;
+                bool widthIsIterated = widthIterator > 1;
                 bool lastRowIsIterated = heightIterator == 1;
                 
                 if (widthIsIterated && !lastRowIsIterated) {
@@ -71,7 +71,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
                     widthIterator = -1;
                 }
 
-                bool blockIsIteratedThrough = heightIterator == 1 && widthIterator == 1;
+                bool blockIsIteratedThrough = heightIterator == 1 && widthIterator > 1;
 
                 if (blockIsIteratedThrough) {
                     allSumsAreComputed = true;
@@ -92,27 +92,37 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
 }
 
 void edges(int height, int width, RGBTRIPLE image[height][width]) {
+    RGBTRIPLE copy[height][width];
+    int sumOfBlueGx;
+    int sumOfGreenGx;
+    int sumOfRedGx;
+    int sumOfBlueGy;
+    int sumOfGreenGy;
+    int sumOfRedGy;
+    int heightIterator;
+    int widthIterator;
+    int currentEdgeBlueValue;
+    int currentEdgeGreenValue;
+    int currentEdgeRedValue;
+
     for (int edgeHeight = 0; edgeHeight < height; edgeHeight++) {
         for (int edgeWidth = 0; edgeWidth < width; edgeWidth++) {
             bool allKernelCasesForGxAreComputed = false;
             bool allKernelCasesForGyAreComputed = false;
-            int heightIterator = -1;
-            int widthIterator = -1;
-            int currentBlurBlueValue;
-            int currentBlurGreenValue;
-            int currentBlurRedValue;
-            int sumOfBlueGx = 0;
-            int sumOfGreenGx = 0;
-            int sumOfRedGx = 0;
-            int sumOfBlueGy = 0;
-            int sumOfGreenGy = 0;
-            int sumOfRedGy = 0;
+            heightIterator = -1;
+            widthIterator = -1;
+            sumOfBlueGx = 0;
+            sumOfGreenGx = 0;
+            sumOfRedGx = 0;
+            sumOfBlueGy = 0;
+            sumOfGreenGy = 0;
+            sumOfRedGy = 0;
 
             while (!allKernelCasesForGxAreComputed) {
-                currentBlurBlueValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
-                currentBlurGreenValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
-                currentBlurRedValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
-
+                currentEdgeBlueValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
+                currentEdgeGreenValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
+                currentEdgeRedValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
+                
                 bool adjacentPixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
                 bool upperLeftNeighborIsAdressed = heightIterator == -1 && widthIterator == -1;
                 bool upperRightNeighborIsAdressed = heightIterator == -1 && widthIterator == 1;
@@ -123,51 +133,51 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                 bool sumOfBlueGxHasOverflow = sumOfBlueGx > 255;
                 bool sumOfGreenGxHasOverflow = sumOfGreenGx > 255;
                 bool sumOfRedGxHasOverflow = sumOfRedGx > 255;
-                bool isActuallyOriginalValue = heightIterator == edgeHeight && widthIterator == edgeWidth;
-
+                
                 if (!adjacentPixelIsValid) {
-                    currentBlurBlueValue = 0;
-                    currentBlurGreenValue = 0;
-                    currentBlurRedValue = 0;
+                    currentEdgeBlueValue = 0;
+                    currentEdgeGreenValue = 0;
+                    currentEdgeRedValue = 0;
                 }
  
                 if (upperLeftNeighborIsAdressed) {
-                    sumOfBlueGx = sumOfBlueGx + (currentBlurBlueValue * -1);
-                    sumOfGreenGx = sumOfGreenGx + (currentBlurGreenValue * -1);
-                    sumOfRedGx = sumOfRedGx + (currentBlurRedValue * -1);
+                    sumOfBlueGx = sumOfBlueGx + (currentEdgeBlueValue * -1);
+                    sumOfGreenGx = sumOfGreenGx + (currentEdgeGreenValue * -1);
+                    sumOfRedGx = sumOfRedGx + (currentEdgeRedValue * -1);
                 }
 
                 if (leftNeighborIsAdressed) {
-                    sumOfBlueGx = sumOfBlueGx + (currentBlurBlueValue * -2);
-                    sumOfGreenGx = sumOfGreenGx + (currentBlurGreenValue  * -2);
-                    sumOfRedGx = sumOfRedGx + (currentBlurRedValue  * -2);
+                    sumOfBlueGx = sumOfBlueGx + (currentEdgeBlueValue * -2);
+                    sumOfGreenGx = sumOfGreenGx + (currentEdgeGreenValue  * -2);
+                    sumOfRedGx = sumOfRedGx + (currentEdgeRedValue  * -2);
                 }
 
                 if (lowerLeftNeighborIsAdressed) {
-                    sumOfBlueGx = sumOfBlueGx + (currentBlurBlueValue * -1);
-                    sumOfGreenGx = sumOfGreenGx + (currentBlurGreenValue  * -1);
-                    sumOfRedGx = sumOfRedGx + (currentBlurRedValue  * -1);
+                    sumOfBlueGx = sumOfBlueGx + (currentEdgeBlueValue * -1);
+                    sumOfGreenGx = sumOfGreenGx + (currentEdgeGreenValue  * -1);
+                    sumOfRedGx = sumOfRedGx + (currentEdgeRedValue  * -1);
                 }
 
                 if (upperRightNeighborIsAdressed) {
-                    sumOfBlueGx = sumOfBlueGx + (currentBlurBlueValue * 1);
-                    sumOfGreenGx = sumOfGreenGx + (currentBlurGreenValue  * 1);
-                    sumOfRedGx = sumOfRedGx + (currentBlurRedValue  * 1);
+                    sumOfBlueGx = sumOfBlueGx + (currentEdgeBlueValue * 1);
+                    sumOfGreenGx = sumOfGreenGx + (currentEdgeGreenValue  * 1);
+                    sumOfRedGx = sumOfRedGx + (currentEdgeRedValue  * 1);
                 }
 
                 if (rightNeighborIsAdressed) {
-                    sumOfBlueGx = sumOfBlueGx + (currentBlurBlueValue * 2);
-                    sumOfGreenGx = sumOfGreenGx + (currentBlurGreenValue  * 2);
-                    sumOfRedGx = sumOfRedGx + (currentBlurRedValue  * 2);
+                    sumOfBlueGx = sumOfBlueGx + (currentEdgeBlueValue * 2);
+                    sumOfGreenGx = sumOfGreenGx + (currentEdgeGreenValue  * 2);
+                    sumOfRedGx = sumOfRedGx + (currentEdgeRedValue  * 2);
                 }
 
                 if (lowerRightNeighborIsAdressed) {
-                    sumOfBlueGx = sumOfBlueGx + (currentBlurBlueValue * 1);
-                    sumOfGreenGx = sumOfGreenGx + (currentBlurGreenValue  * 1);
-                    sumOfRedGx = sumOfRedGx + (currentBlurRedValue  * 1);
+                    sumOfBlueGx = sumOfBlueGx + (currentEdgeBlueValue * 1);
+                    sumOfGreenGx = sumOfGreenGx + (currentEdgeGreenValue  * 1);
+                    sumOfRedGx = sumOfRedGx + (currentEdgeRedValue  * 1);
                 }
-            
-                bool widthIsIterated = widthIterator == 1;
+
+                widthIterator++;
+                bool widthIsIterated = widthIterator > 1;
                 bool lastRowIsIterated = heightIterator == 1;
                 
                 if (widthIsIterated && !lastRowIsIterated) {
@@ -175,7 +185,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                     widthIterator = -1;
                 }
 
-                bool blockIsIteratedThrough = heightIterator == 1 && widthIterator == 1;
+                bool blockIsIteratedThrough = widthIsIterated && lastRowIsIterated;
 
                 if (blockIsIteratedThrough) {
                     allKernelCasesForGxAreComputed = true;
@@ -192,17 +202,15 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                         sumOfRedGx = 255;
                     }
                 }
-                
-                widthIterator++;
             }
             
             heightIterator = -1;
             widthIterator = -1;
 
             while (!allKernelCasesForGyAreComputed) {
-                currentBlurBlueValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
-                currentBlurGreenValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
-                currentBlurRedValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
+                currentEdgeBlueValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
+                currentEdgeGreenValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
+                currentEdgeRedValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
 
                 bool adjacentPixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
                 bool upperLeftNeighborIsAdressed = heightIterator == -1 && widthIterator == -1;
@@ -217,49 +225,50 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                 bool isActuallyOriginalValue = heightIterator == edgeHeight && widthIterator == edgeWidth;
 
                 if (!adjacentPixelIsValid) {
-                    currentBlurBlueValue = 0;
-                    currentBlurGreenValue = 0;
-                    currentBlurRedValue = 0;
+                    currentEdgeBlueValue = 0;
+                    currentEdgeGreenValue = 0;
+                    currentEdgeRedValue = 0;
                 }
 
                 if (upperLeftNeighborIsAdressed) {
-                    sumOfBlueGy = sumOfBlueGy + (currentBlurBlueValue * -1);
-                    sumOfGreenGy = sumOfGreenGy + (currentBlurGreenValue  * -1);
-                    sumOfRedGy = sumOfRedGy + (currentBlurRedValue  * -1);
+                    sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * -1);
+                    sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * -1);
+                    sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * -1);
                 }
 
                 if (upperMiddleNeighborIsAdressed) {
-                    sumOfBlueGy = sumOfBlueGy + (currentBlurBlueValue * -2);
-                    sumOfGreenGy = sumOfGreenGy + (currentBlurGreenValue  * -2);
-                    sumOfRedGy = sumOfRedGy + (currentBlurRedValue  * -2);
+                    sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * -2);
+                    sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * -2);
+                    sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * -2);
                 }
                 
                 if (upperRightNeighborIsAdressed) {
-                    sumOfBlueGy = sumOfBlueGy + (currentBlurBlueValue * -1);
-                    sumOfGreenGy = sumOfGreenGy + (currentBlurGreenValue  * -1);
-                    sumOfRedGy = sumOfRedGy + (currentBlurRedValue  * -1);
+                    sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * -1);
+                    sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * -1);
+                    sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * -1);
                 }
 
                 if (lowerLeftNeighborIsAdressed) {
-                    sumOfBlueGy = sumOfBlueGy + (currentBlurBlueValue * 1);
-                    sumOfGreenGy = sumOfGreenGy + (currentBlurGreenValue  * 1);
-                    sumOfRedGy = sumOfRedGy + (currentBlurRedValue  * 1);
+                    sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * 1);
+                    sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * 1);
+                    sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 1);
                 }
 
                 if (lowerMiddleNeighborIsAdressed) {
-                    sumOfBlueGy = sumOfBlueGy + (currentBlurBlueValue * 2);
-                    sumOfGreenGy = sumOfGreenGy + (currentBlurGreenValue  * 2);
-                    sumOfRedGy = sumOfRedGy + (currentBlurRedValue  * 2);
+                    sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * 2);
+                    sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * 2);
+                    sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 2);
                 }
 
                 if (lowerRightNeighborIsAdressed) {
-                    sumOfBlueGy = sumOfBlueGy + (currentBlurBlueValue * 1);
-                    sumOfGreenGy = sumOfGreenGy + (currentBlurGreenValue  * 1);
-                    sumOfRedGy = sumOfRedGy + (currentBlurRedValue  * 1);
+                    sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * 1);
+                    sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * 1);
+                    sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 1);
                 }
             
-                bool widthIsIterated = widthIterator == 1;
+                bool widthIsIterated = widthIterator > 1;
                 bool lastRowIsIterated = heightIterator == 1;
+                widthIterator++;
                 
                 if (widthIsIterated && !lastRowIsIterated) {
                     heightIterator++;
@@ -284,13 +293,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                         sumOfRedGy = 255;
                     }
                 }
-
-                widthIterator++;
             }
 
-            int gxAndGyCombinedBlue = sqrt(pow(sumOfBlueGx, 2) + pow(sumOfBlueGy, 2));
-            int gxAndGyCombinedGreen = sqrt(pow(sumOfGreenGx, 2) + pow(sumOfGreenGy, 2));
-            int gxAndGyCombinedRed = sqrt(pow(sumOfRedGx, 2) + pow(sumOfRedGy, 2));
+            int gxAndGyCombinedBlue = sqrt((sumOfBlueGx * sumOfBlueGx) + (sumOfBlueGy * sumOfBlueGy));
+            int gxAndGyCombinedGreen = sqrt((sumOfGreenGx * sumOfGreenGx) + (sumOfGreenGy * sumOfGreenGy));
+            int gxAndGyCombinedRed = sqrt((sumOfRedGx * sumOfRedGx) + (sumOfRedGy * sumOfRedGy));
             bool combinedBlueHasOverflow = gxAndGyCombinedBlue > 255;
             bool combinedGreenHasOverflow = gxAndGyCombinedGreen > 255;
             bool combinedRedHasOverflow = gxAndGyCombinedRed > 255;
@@ -307,9 +314,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                 gxAndGyCombinedRed = 255;
             }
 
-            image[edgeHeight][edgeWidth].rgbtBlue = gxAndGyCombinedBlue;
-            image[edgeHeight][edgeWidth].rgbtGreen = gxAndGyCombinedGreen;
-            image[edgeHeight][edgeWidth].rgbtRed = gxAndGyCombinedRed;
+            copy[edgeHeight][edgeWidth].rgbtBlue = gxAndGyCombinedBlue;
+            copy[edgeHeight][edgeWidth].rgbtGreen = gxAndGyCombinedGreen;
+            copy[edgeHeight][edgeWidth].rgbtRed = gxAndGyCombinedRed;
         }
     }
    
