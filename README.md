@@ -1,2 +1,3 @@
 # CS50-Harvard
-Die Aufgaben für Woche 3 sind hier: https://cs50.harvard.edu/x/2022/psets/3/
+The URL where all problems are listed is here: https://learning.edx.org/course/course-v1:HarvardX+CS50+X/home 
+Just scroll down to see the different weeks and problem sets below.
