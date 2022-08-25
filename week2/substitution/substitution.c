@@ -44,9 +44,8 @@ int main(int argc, string argv[]) {
 }   
 
 bool hasLength(string key) {
-    if (strlen(key) == 26) return true;
-    
-    return false;
+    return strlen(key) == 26;
+
 }
 
 bool hasDigits(string key) {
