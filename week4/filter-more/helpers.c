@@ -93,6 +93,12 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
 
 void edges(int height, int width, RGBTRIPLE image[height][width]) {
     RGBTRIPLE copy[height][width];
+    for (int copyHeight = 0; copyHeight < height; copyHeight++) {
+        for (int copyWidth = 0; copyWidth < width; copyWidth++) {
+            copy[copyHeight][copyWidth] = image[copyHeight][copyWidth];
+        }
+    }
+
     int sumOfBlueGx;
     int sumOfGreenGx;
     int sumOfRedGx;
@@ -119,9 +125,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
             sumOfRedGy = 0;
 
             while (!allKernelCasesForGxAreComputed) {
-                currentEdgeBlueValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
-                currentEdgeGreenValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
-                currentEdgeRedValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
+                currentEdgeBlueValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
+                currentEdgeGreenValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
+                currentEdgeRedValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
                 
                 bool adjacentPixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
                 bool upperLeftNeighborIsAdressed = heightIterator == -1 && widthIterator == -1;
@@ -208,9 +214,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
             widthIterator = -1;
 
             while (!allKernelCasesForGyAreComputed) {
-                currentEdgeBlueValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
-                currentEdgeGreenValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
-                currentEdgeRedValue = image[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
+                currentEdgeBlueValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
+                currentEdgeGreenValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
+                currentEdgeRedValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
 
                 bool adjacentPixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
                 bool upperLeftNeighborIsAdressed = heightIterator == -1 && widthIterator == -1;
@@ -222,7 +228,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                 bool sumOfBlueGyHasOverflow = sumOfBlueGy > 255;
                 bool sumOfGreenGyHasOverflow = sumOfGreenGy > 255;
                 bool sumOfRedGyHasOverflow = sumOfRedGy > 255;
-                bool isActuallyOriginalValue = heightIterator == edgeHeight && widthIterator == edgeWidth;
 
                 if (!adjacentPixelIsValid) {
                     currentEdgeBlueValue = 0;
@@ -265,10 +270,10 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                     sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * 1);
                     sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 1);
                 }
-            
+
+                widthIterator++;
                 bool widthIsIterated = widthIterator > 1;
                 bool lastRowIsIterated = heightIterator == 1;
-                widthIterator++;
                 
                 if (widthIsIterated && !lastRowIsIterated) {
                     heightIterator++;
@@ -298,6 +303,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
             int gxAndGyCombinedBlue = sqrt((sumOfBlueGx * sumOfBlueGx) + (sumOfBlueGy * sumOfBlueGy));
             int gxAndGyCombinedGreen = sqrt((sumOfGreenGx * sumOfGreenGx) + (sumOfGreenGy * sumOfGreenGy));
             int gxAndGyCombinedRed = sqrt((sumOfRedGx * sumOfRedGx) + (sumOfRedGy * sumOfRedGy));
+            
             bool combinedBlueHasOverflow = gxAndGyCombinedBlue > 255;
             bool combinedGreenHasOverflow = gxAndGyCombinedGreen > 255;
             bool combinedRedHasOverflow = gxAndGyCombinedRed > 255;
@@ -314,9 +320,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                 gxAndGyCombinedRed = 255;
             }
 
-            copy[edgeHeight][edgeWidth].rgbtBlue = gxAndGyCombinedBlue;
-            copy[edgeHeight][edgeWidth].rgbtGreen = gxAndGyCombinedGreen;
-            copy[edgeHeight][edgeWidth].rgbtRed = gxAndGyCombinedRed;
+            image[edgeHeight][edgeWidth].rgbtBlue = gxAndGyCombinedBlue;
+            image[edgeHeight][edgeWidth].rgbtGreen = gxAndGyCombinedGreen;
+            image[edgeHeight][edgeWidth].rgbtRed = gxAndGyCombinedRed;
         }
     }
    
