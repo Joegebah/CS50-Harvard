@@ -38,5 +38,5 @@ int compute_score(string word) {
         }
     }
     
-return scoreCount;
+    return scoreCount;
 }
