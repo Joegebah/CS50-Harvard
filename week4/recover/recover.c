@@ -17,47 +17,38 @@ int main(int argc, char *argv[]) {
     }
 
     FILE *recoveryCard = fopen(argv[1], "r");
-    bool fileCannotBeRead = recoveryCard == NULL;
 
-    if (fileCannotBeRead) {
+    if (recoveryCard == NULL) {
         printf("File cannot be opened. Please try again. \n");
 
-        return 1;
+        return 2;
     }
 
-    BYTE buffer;
-    BYTE signatureBytes[4];
-    signatureBytes[3] = signatureBytes[3] >> 4;
-    char stringSize[4];
-    int lastDigit = 0;
-    int secondLastDigit = 0;
-    int thirdLastDigit = 0;
+    BYTE blockOfBytesOfInput[BLOCK_SIZE];
+    int imageCounter = 0;
 
-    while (fread(&buffer, 1, BLOCK_SIZE, recoveryCard) == BLOCK_SIZE) {
-        sprintf(stringSize, "%d%d%d.png", thirdLastDigit, secondLastDigit, lastDigit);
-        printf("%s", stringSize);
+    FILE *outputImage = NULL;
+    char *fileName = malloc(8 * sizeof(char));
+
+    while (fread(blockOfBytesOfInput, 1, BLOCK_SIZE, recoveryCard)) {
+
+        bool signatureIsEncountered = blockOfBytesOfInput[0] == 0xff && blockOfBytesOfInput[1] == 0xd8 && blockOfBytesOfInput[2] == 0xff && ((blockOfBytesOfInput[3] & 0xf0) == 0xe0);
+
+        if (signatureIsEncountered) {
+            sprintf(fileName ,"%03i.jpg", imageCounter);
+            outputImage = fopen(fileName, "w");
+            imageCounter++;
+        }
         
-        bool lastDigitHasOverflow = lastDigit > 9;
-        bool secondDigitsHasOverflow = secondLastDigit > 9;
-
-        if (lastDigitHasOverflow) {
-            secondLastDigit++;
-            lastDigit = 0;
+        if(outputImage != NULL) {
+            fwrite(blockOfBytesOfInput, 1, BLOCK_SIZE, outputImage);            
         }
-
-        if (secondDigitsHasOverflow) {
-            thirdLastDigit++;
-            secondLastDigit = 0;
-        }
-
-        fread(signatureBytes, sizeof(signatureBytes), 3, recoveryCard);
-        FILE *output = fopen(stringSize, "w");
-
-        if (signatureBytes[0] == 0xff && signatureBytes[1] == 0xd8 && signatureBytes[2] == 0xff && signatureBytes[3] == 0xe) {
-            fwrite(&buffer, 1, BLOCK_SIZE, output);
-        }
-
-        lastDigit++;
     }
+
+    free(fileName);
+    fclose(outputImage);
+    fclose(recoveryCard);
+
+    return 0;
 
 }
