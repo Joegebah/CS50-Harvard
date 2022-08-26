@@ -26,17 +26,20 @@ int main(int argc, char *argv[]) {
     }
 
     BYTE buffer;
+    BYTE signatureBytes[4];
+    signatureBytes[3] = signatureBytes[3] >> 4;
     char stringSize[4];
     int lastDigit = 0;
     int secondLastDigit = 0;
     int thirdLastDigit = 0;
 
     while (fread(&buffer, 1, BLOCK_SIZE, recoveryCard) == BLOCK_SIZE) {
-        sprintf(stringSize, "%d%d%d", thirdLastDigit, secondLastDigit, lastDigit);
+        sprintf(stringSize, "%d%d%d.png", thirdLastDigit, secondLastDigit, lastDigit);
         printf("%s", stringSize);
         
         bool lastDigitHasOverflow = lastDigit > 9;
         bool secondDigitsHasOverflow = secondLastDigit > 9;
+
         if (lastDigitHasOverflow) {
             secondLastDigit++;
             lastDigit = 0;
@@ -45,6 +48,13 @@ int main(int argc, char *argv[]) {
         if (secondDigitsHasOverflow) {
             thirdLastDigit++;
             secondLastDigit = 0;
+        }
+
+        fread(signatureBytes, sizeof(signatureBytes), 3, recoveryCard);
+        FILE *output = fopen(stringSize, "w");
+
+        if (signatureBytes[0] == 0xff && signatureBytes[1] == 0xd8 && signatureBytes[2] == 0xff && signatureBytes[3] == 0xe) {
+            fwrite(&buffer, 1, BLOCK_SIZE, output);
         }
 
         lastDigit++;
