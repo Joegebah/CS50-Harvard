@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdbool.h>
+#include <string.h>
 #include "dictionary.h"
 
 typedef struct node {
@@ -13,15 +14,17 @@ node *table[N];
 
 bool check(const char *word) {
     
+
     return false;
 }
 
 unsigned int hash(const char *word) {
-
+    
     return toupper(word[0]) - 'A';
 }
 
 bool load(const char *dictionary) {
+    
     
     return false;
 }
