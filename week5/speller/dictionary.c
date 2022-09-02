@@ -17,16 +17,20 @@ node *table[N];
 
 bool check(const char *word) {
     int bucketIndex = hash(word);
-    node *cursor = table[bucketIndex];
-
+    node *cursor = malloc(sizeof(node));
+    cursor = table[bucketIndex];
+    string s = cursor->word;
+    printf("%s",s);
     bool linkedListHasReachedEnd = cursor == NULL;
     bool wordIsFound = strcasecmp(cursor->word, word) == 0;
+    printf("test");
     bool checkIsValid = wordIsFound && !linkedListHasReachedEnd;
     
     while (!wordIsFound || !linkedListHasReachedEnd) {
         cursor = cursor->next;
     }
 
+    free(cursor);
     return (checkIsValid) ? true : false;
 }
 
