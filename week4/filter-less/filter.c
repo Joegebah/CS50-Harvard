@@ -10,16 +10,19 @@ int main(int argc, char *argv[]) {
     char filter = getopt(argc, argv, filters);
     if (filter == '?') {
         printf("Invalid filter.\n");
+
         return 1;
     }
 
     if (getopt(argc, argv, filters) != -1) {
         printf("Only one filter allowed.\n");
+
         return 2;
     }
 
     if (argc != optind + 2) {
         printf("Usage: ./filter [flag] infile outfile\n");
+
         return 3;
     }
 
@@ -29,6 +32,7 @@ int main(int argc, char *argv[]) {
     FILE *inptr = fopen(infile, "r");
     if (inptr == NULL) {
         printf("Could not open %s.\n", infile);
+
         return 4;
     }
 
@@ -36,6 +40,7 @@ int main(int argc, char *argv[]) {
     if (outptr == NULL) {
         fclose(inptr);
         printf("Could not create %s.\n", outfile);
+        
         return 5;
     }
 
@@ -50,6 +55,7 @@ int main(int argc, char *argv[]) {
         fclose(outptr);
         fclose(inptr);
         printf("Unsupported file format.\n");
+
         return 6;
     }
 
