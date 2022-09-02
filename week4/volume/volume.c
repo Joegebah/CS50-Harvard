@@ -10,18 +10,21 @@ typedef int16_t DOUBLE_BYTE;
 int main(int argc, char *argv[]) {
     if (argc != 4) {
         printf("Usage: ./volume input.wav output.wav factor\n");
+        
         return 1;
     }
 
     FILE *input = fopen(argv[1], "r");
     if (input == NULL) {
         printf("Could not open file.\n");
+
         return 1;
     }
 
     FILE *output = fopen(argv[2], "w");
     if (output == NULL) {
         printf("Could not open file.\n");
+
         return 1;
     }
 
@@ -36,6 +39,7 @@ int main(int argc, char *argv[]) {
         buffer = buffer * factor;
         fwrite(&buffer, sizeof(DOUBLE_BYTE), 1, output);
     }
+
     fclose(input);
     fclose(output);
 }
