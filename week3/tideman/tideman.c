@@ -141,9 +141,7 @@ void add_pairs(void) {
 }
 
 void sort_pairs(void) {
-    int amountOfIterationsIndex = 0;
-
-    while (amountOfIterationsIndex < pair_count) {
+    for (int amountOfIterationsIndex = 0; amountOfIterationsIndex < pair_count; amountOfIterationsIndex++) {
         for (int pairIterator = 0; pairIterator < pair_count; pairIterator++) {
             int pairWinnerIndex = pairs[pairIterator].winner;
             int pairLoserIndex = pairs[pairIterator].loser;
@@ -160,8 +158,6 @@ void sort_pairs(void) {
                 pairs[pairIterator + 1] = savePairFromOverride;
             }
         }
-
-        amountOfIterationsIndex++;
     }
 
     return;
