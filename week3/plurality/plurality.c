@@ -30,6 +30,8 @@ int main(int argc, string argv[]) {
 
         return 2;
     }
+
+
     for (int i = 0; i < candidate_count; i++) {
         candidates[i].name = argv[i + 1];
         candidates[i].votes = 0;
@@ -45,7 +47,6 @@ int main(int argc, string argv[]) {
             printf("Invalid vote.\n");
         }
     }
-
     print_winner();
     return 0;
 }
