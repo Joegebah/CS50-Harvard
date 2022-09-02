@@ -63,10 +63,7 @@ bool vote(string name) {
 }
 
 void print_winner(void) {
-
-    int i = 0;
-
-    while (i < candidate_count - 1) {
+    for (int i = 0; i < candidate_count - 1; i++) {
         for (int i = 0; i < candidate_count - 1; i++) {
 
             if (candidates[i].votes < candidates[i + 1].votes) {
@@ -76,15 +73,13 @@ void print_winner(void) {
                 candidates[i + 1] = save;
             }
         }
-        i++;
     }
+
     if (candidates[0].votes != candidates[1].votes) {
         printf("%s has won the election!\n", candidates[0].name);
     }
     else {
-        
-        i = 0;
-
+        int i = 0;
         printf("The winners are: \n");
         while (i < candidate_count) {
 
