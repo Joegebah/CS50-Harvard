@@ -165,15 +165,13 @@ int find_min(void) {
 }
 
 bool is_tie(int min) {
-    int j = 0;
-    while (j < candidate_count) {
+    for (int j = 0; j < candidate_count; j++)  {
         bool candidateIsEliminated = candidates[j].eliminated;
         bool candidateIsNotMin = candidates[j].votes != min;
 
         if (!candidateIsEliminated && candidateIsNotMin) {
             return false;
         }
-        j++;
     }
 
     return true;
