@@ -116,7 +116,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
 
             averageBlue = round(sumOfBlue / validCounter);
             averageGreen = round(sumOfGreen / validCounter);
-            averageRed =round(sumOfRed / validCounter);
+            averageRed = round(sumOfRed / validCounter);
 
             image[blurHeight][blurWidth].rgbtBlue = averageBlue;
             image[blurHeight][blurWidth].rgbtGreen = averageGreen;
