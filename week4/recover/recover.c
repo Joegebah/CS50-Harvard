@@ -50,5 +50,4 @@ int main(int argc, char *argv[]) {
     fclose(recoveryCard);
 
     return 0;
-
 }
