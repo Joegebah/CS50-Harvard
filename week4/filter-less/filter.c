@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
         printf("Not enough memory to store image.\n");
         fclose(outptr);
         fclose(inptr);
+        
         return 7;
     }
 
