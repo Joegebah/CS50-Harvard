@@ -18,12 +18,13 @@ node *table[N];
 bool check(const char *word) {
     int bucketIndex = hash(word);
     node *cursor = malloc(sizeof(node));
+
     cursor = table[bucketIndex];
     string s = cursor->word;
-    printf("%s",s);
+    
     bool linkedListHasReachedEnd = cursor == NULL;
+
     bool wordIsFound = strcasecmp(cursor->word, word) == 0;
-    printf("test");
     bool checkIsValid = wordIsFound && !linkedListHasReachedEnd;
     
     while (!wordIsFound || !linkedListHasReachedEnd) {
@@ -50,7 +51,12 @@ bool load(const char *dictionary) {
         return 1;
     }
 
-    string word = malloc(sizeof(string));
+    for (int tableIndexIterator = 0; tableIndexIterator < N; tableIndexIterator++) {
+        node *bucket = malloc(sizeof(node));
+        table[tableIndexIterator] = bucket;
+    }
+
+    string word;
     while (fscanf(dict, "%s", word) != EOF) {  
         node *newNode = malloc(sizeof(node));
         
@@ -61,19 +67,17 @@ bool load(const char *dictionary) {
         
         strcpy(newNode->word, word);
         newNode->next = NULL;
-
         unsigned int bucketIndex = hash(newNode->word);
+
         bool bucketIsEmpty = table[bucketIndex] == NULL;
         if (bucketIsEmpty) {
-            table[bucketIndex] = newNode;
+            table[bucketIndex]->next = newNode;
         }
         else {
             newNode = table[bucketIndex]->next;
             table[bucketIndex] = newNode;
         }
     }
-
-    free(word);
 
     return true;
 }
