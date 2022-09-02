@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
             imageCounter++;
         }
         
-        if(outputImage != NULL) {
+        if (outputImage != NULL) {
             fwrite(blockOfBytesOfInput, 1, BLOCK_SIZE, outputImage);            
         }
     }
