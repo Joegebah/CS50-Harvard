@@ -76,18 +76,22 @@ int main(int argc, char *argv[]) {
     switch (filter) {
         case 'b':
             blur(height, width, image);
+
             break;
 
         case 'g':
             grayscale(height, width, image);
+
             break;
 
         case 'r':
             reflect(height, width, image);
+
             break;
 
         case 's':
             sepia(height, width, image);
+            
             break;
     }
 
@@ -106,6 +110,6 @@ int main(int argc, char *argv[]) {
 
     fclose(inptr);
     fclose(outptr);
-    
+
     return 0;
 }
