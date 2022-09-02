@@ -117,10 +117,8 @@ void record_preferences(int ranks[]) {
 }
 
 void add_pairs(void) {
-    int jparser = 1;
-
     for (int i = 0; i < candidate_count; i++) {
-        for (int j = jparser; j < candidate_count; j++) {
+        for (int j = i + 1; j < candidate_count; j++) {
             pair pair;
             bool candidateIIsWinner = preferences[i][j] > preferences[j][i];
             bool candidateJIsWinner = preferences[i][j] < preferences[j][i];
@@ -137,7 +135,6 @@ void add_pairs(void) {
             pairs[pair_count] = pair;
             pair_count++;
         }
-        jparser++;
     }
 
     return;
