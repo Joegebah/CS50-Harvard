@@ -71,7 +71,6 @@ int main(int argc, string argv[]) {
     while (true) {
         tabulate();
         bool won = print_winner();
-
         if (won) {
             break;
         }
@@ -143,6 +142,7 @@ bool print_winner(void) {
 
         if (candidateHasMajority) {
             printf("%s\n", candidates[j].name);
+
             return true;
         }
     }
