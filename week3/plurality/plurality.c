@@ -47,6 +47,7 @@ int main(int argc, string argv[]) {
         }
     }
     print_winner();
+    
     return 0;
 }
 
