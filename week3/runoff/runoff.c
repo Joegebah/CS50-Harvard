@@ -117,7 +117,7 @@ bool vote(int voter, int rank, string name) {
 void tabulate(void) {
     for (int i = 0; i < voter_count; i++) {
         for( int j = 0; j < candidate_count; j++) {
-            bool candidateIsEliminated = candidates[j].eliminated == true;
+            bool candidateIsEliminated = candidates[j].eliminated;
             bool candidateIsPreferedVote = preferences[i][0] == j;
 
             if (!candidateIsEliminated && candidateIsPreferedVote) {
@@ -126,7 +126,7 @@ void tabulate(void) {
 
             if (candidateIsEliminated && candidateIsPreferedVote) {
                 for (int rank = 1; rank < candidate_count; rank++) {
-                    bool preferenceIsEliminated = candidates[preferences[i][rank]].eliminated == true;
+                    bool preferenceIsEliminated = candidates[preferences[i][rank]].eliminated;
                     if (!preferenceIsEliminated) {
                         candidates[preferences[i][rank]].votes++;
                     }
@@ -154,7 +154,7 @@ bool print_winner(void) {
 int find_min(void) {
     int minimum = voter_count;
     for (int j = 0; j < candidate_count; j++) {
-        bool candidateIsEliminated = candidates[j].eliminated == true;
+        bool candidateIsEliminated = candidates[j].eliminated;
 
         if (candidates[j].votes < minimum && !candidateIsEliminated) {
             minimum = candidates[j].votes;
@@ -167,7 +167,7 @@ int find_min(void) {
 bool is_tie(int min) {
     int j = 0;
     while (j < candidate_count) {
-        bool candidateIsEliminated = candidates[j].eliminated == true;
+        bool candidateIsEliminated = candidates[j].eliminated;
         bool candidateIsNotMin = candidates[j].votes != min;
 
         if (!candidateIsEliminated && candidateIsNotMin) {
@@ -183,7 +183,7 @@ bool is_tie(int min) {
 void eliminate(int min) {
     for (int j = 0; j < candidate_count; j++) {
         bool isMin = candidates[j].votes == min;
-        bool candidateIsEliminated = candidates[j].eliminated == true;
+        bool candidateIsEliminated = candidates[j].eliminated;
 
         if (isMin && !candidateIsEliminated) {
             candidates[j].eliminated = true;
