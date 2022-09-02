@@ -79,9 +79,9 @@ void print_winner(void) {
         printf("%s has won the election!\n", candidates[0].name);
     }
     else {
-        int i = 0;
         printf("The winners are: \n");
-        while (i < candidate_count) {
+
+        for (int i = 0; i < candidate_count; i++) {
 
             int maximumVote = candidates[0].votes; 
             bool hasFoundMaxVotes = candidates[i].votes == maximumVote;
@@ -89,7 +89,6 @@ void print_winner(void) {
             if (hasFoundMaxVotes) {
                 printf("%s \n", candidates[i].name);
             }
-            i++;
         }
     }
 
