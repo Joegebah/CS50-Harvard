@@ -187,7 +187,6 @@ void eliminate(int min) {
 
         if (isMin && !candidateIsEliminated) {
             candidates[j].eliminated = true;
-            return;
         }
     }
     
