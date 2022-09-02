@@ -214,12 +214,9 @@ void lock_pairs(void) {
 }
 
 void print_winner(void) {
-    int columnIterator = 0;
-
-    while (columnIterator < candidate_count) {
-        int rowIterator = 0;
-
-        while (rowIterator < candidate_count) {
+    for (int columnIterator = 0; columnIterator < candidate_count; columnIterator++) {
+        for (int rowIterator = 0; rowIterator < candidate_count; rowIterator++) {
+            
             int rowMax = candidate_count - 1;
             bool cellIsTrue = locked[rowIterator][columnIterator] == true;
             bool columnIsThrough = rowIterator == rowMax;
@@ -227,7 +224,6 @@ void print_winner(void) {
 
 
             if (cellIsTrue) {
-                columnIterator++;
 
                 break;
             }
@@ -237,8 +233,6 @@ void print_winner(void) {
 
                 return;
             }
-
-            rowIterator++;
         }
     }
 }
