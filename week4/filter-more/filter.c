@@ -83,22 +83,18 @@ int main(int argc, char *argv[]) {
     switch (filter) {
         case 'b':
             blur(height, width, image);
-
             break;
 
         case 'e':
             edges(height, width, image);
-
             break;
 
         case 'g':
             grayscale(height, width, image);
-
             break;
 
         case 'r':
             reflect(height, width, image);
-
             break;
     }
 
