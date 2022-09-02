@@ -1,6 +1,6 @@
-#include <cs50.h>
 #include <stdio.h>
 #include <string.h>
+#include <cs50.h>
 
 #define MAX 9
 
@@ -170,13 +170,11 @@ void lock_pairs(void) {
 
         locked[rowNumberForLocked][columnNumberForLocked] = true;
 
-        int columnIterator = 0;
+        for (int columnIterator = 0; columnIterator < candidate_count; columnIterator++) {
 
-        while (columnIterator < candidate_count) {
-            int rowIterator = 0;
             bool columnHasFalse = false;
 
-            while (rowIterator < candidate_count) {
+            for (int rowIterator = 0; rowIterator < candidate_count; rowIterator++)  {
                 int rowMax = candidate_count - 1;
                 bool columnIsChecked = rowIterator == rowMax;
                 bool cellIsTrue = locked[columnIterator][rowIterator] == true;
@@ -203,14 +201,12 @@ void lock_pairs(void) {
 
                     return; 
                 }
-                rowIterator++;
             }
 
             if (columnHasFalse) {
                 
                 break;
             }
-            columnIterator++;
         }
     } 
 
