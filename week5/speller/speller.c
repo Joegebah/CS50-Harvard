@@ -42,7 +42,6 @@ int main(int argc, char *argv[]) {
 
         return 1;
     }
-
     printf("\nMISSPELLED WORDS\n\n");
 
     int index = 0, misspellings = 0, words = 0;
