@@ -19,20 +19,19 @@ bool check(const char *word) {
     int bucketIndex = hash(word);
     node *cursor = malloc(sizeof(node));
 
-    cursor = table[bucketIndex];
-    string s = cursor->word;
-    
-    bool linkedListHasReachedEnd = cursor == NULL;
+    cursor = table[bucketIndex]->next;
+    string dictionaryReferenceWord = cursor->word;
 
-    bool wordIsFound = strcasecmp(cursor->word, word) == 0;
-    bool checkIsValid = wordIsFound && !linkedListHasReachedEnd;
+    bool linkedListHasReachedEnd = cursor->next == NULL;
+    bool wordIsFound = strcasecmp(dictionaryReferenceWord, word) == 0;
     
     while (!wordIsFound || !linkedListHasReachedEnd) {
         cursor = cursor->next;
     }
 
     free(cursor);
-    return (checkIsValid) ? true : false;
+
+    return (wordIsFound) ? true : false;
 }
 
 unsigned int hash(const char *word) {
@@ -50,10 +49,10 @@ bool load(const char *dictionary) {
 
         return 1;
     }
-
     for (int tableIndexIterator = 0; tableIndexIterator < N; tableIndexIterator++) {
         node *bucket = malloc(sizeof(node));
         table[tableIndexIterator] = bucket;
+        table[tableIndexIterator]->next = NULL;
     }
 
     string word;
@@ -64,18 +63,18 @@ bool load(const char *dictionary) {
 
             return false;
         }
-        
+
         strcpy(newNode->word, word);
         newNode->next = NULL;
         unsigned int bucketIndex = hash(newNode->word);
 
-        bool bucketIsEmpty = table[bucketIndex] == NULL;
+        bool bucketIsEmpty = table[bucketIndex]->next == NULL;
         if (bucketIsEmpty) {
             table[bucketIndex]->next = newNode;
         }
         else {
             newNode = table[bucketIndex]->next;
-            table[bucketIndex] = newNode;
+            table[bucketIndex]->next = newNode;
         }
     }
 
