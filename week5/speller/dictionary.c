@@ -13,25 +13,22 @@ typedef struct node {
 node;
 
 const unsigned int N = 26;
+int counterOfWordsInDict = 0;
 node *table[N];
 
 bool check(const char *word) {
     int bucketIndex = hash(word);
-    node *cursor = malloc(sizeof(node));
-
-    cursor = table[bucketIndex]->next;
-    string dictionaryReferenceWord = cursor->word;
-
-    bool linkedListHasReachedEnd = cursor->next == NULL;
-    bool wordIsFound = strcasecmp(dictionaryReferenceWord, word) == 0;
+    node *cursor = table[bucketIndex];
     
-    while (!wordIsFound || !linkedListHasReachedEnd) {
+    while (cursor != NULL) {
+        if (strcasecmp(cursor->word, word) == 0) {
+            return true;
+        } 
+            
         cursor = cursor->next;
     }
 
-    free(cursor);
-
-    return (wordIsFound) ? true : false;
+    return false;
 }
 
 unsigned int hash(const char *word) {
@@ -49,14 +46,9 @@ bool load(const char *dictionary) {
 
         return 1;
     }
-    for (int tableIndexIterator = 0; tableIndexIterator < N; tableIndexIterator++) {
-        node *bucket = malloc(sizeof(node));
-        table[tableIndexIterator] = bucket;
-        table[tableIndexIterator]->next = NULL;
-    }
-
-    string word;
-    while (fscanf(dict, "%s", word) != EOF) {  
+    
+    char dictWord[LENGTH + 1];
+    while (fscanf(dict, "%s", dictWord) != EOF) {  
         node *newNode = malloc(sizeof(node));
         
         if (newNode == NULL) {
@@ -64,37 +56,32 @@ bool load(const char *dictionary) {
             return false;
         }
 
-        strcpy(newNode->word, word);
-        newNode->next = NULL;
-        unsigned int bucketIndex = hash(newNode->word);
+        strcpy(newNode->word, dictWord);
+        unsigned int bucketIndex = hash(dictWord);
 
-        bool bucketIsEmpty = table[bucketIndex]->next == NULL;
+        bool bucketIsEmpty = table[bucketIndex] == NULL;
         if (bucketIsEmpty) {
-            table[bucketIndex]->next = newNode;
+            newNode->next = NULL;
         }
         else {
-            newNode = table[bucketIndex]->next;
-            table[bucketIndex]->next = newNode;
+            newNode->next = table[bucketIndex];
         }
+
+        table[bucketIndex] = newNode;
+        counterOfWordsInDict++;
     }
+
+    fclose(dict);
 
     return true;
 }
 
 unsigned int size(void) {
-    int counter = 0; 
-
-    for (int linkedListIterator = 0; linkedListIterator < N - 1; linkedListIterator++) {
-        while (table[linkedListIterator]->next != NULL) {
-            counter++;
-        }
-    }
-
-    return counter;
+    return counterOfWordsInDict;
 }
 
 bool unload(void) {
-    for (int linkedListIterator = 0; linkedListIterator < N - 1; linkedListIterator++) {
+    for (int linkedListIterator = 0; linkedListIterator < N; linkedListIterator++) {
         node *cursor = table[linkedListIterator]->next;
         node *tmp = cursor;
         while (cursor != NULL) {
