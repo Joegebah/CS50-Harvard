@@ -1,54 +1,41 @@
-# Simulate a sports tournament
-
 import csv
 import sys
 import random
 
-# Number of simluations to run
 N = 1000
-
 
 def main():
 
-    # Ensure correct usage
     if len(sys.argv) != 2:
         sys.exit("Usage: python tournament.py FILENAME")
 
     teams = []
-    # TODO: Read teams into memory from file
-    with open(sys.argv[1]) as file_of_teams:
-        reader = csv.reader(file_of_teams)
-        next(reader)
+    with open(sys.argv[1], "r") as file_of_teams:
+        reader = csv.DictReader(file_of_teams)
         for row in reader:
-            team_name = row[0]
-            team_rating = int(row[1])
-            team_dict = {team_name, team_rating}
+            team_name = row["team"]
+            team_rating = row["rating"]
+            team_dict = {team_name: int(team_rating)}
             teams.append(team_dict)
-
+    
     counts = {}
     # TODO: Simulate N tournaments and keep track of win counts
     for i in range(N):
-        simulate_tournament
+        winner_team = simulate_tournament(teams)
+        winner_team.append(counts)
 
-
-    # Print each team's chances of winning, according to simulation
     for team in sorted(counts, key=lambda team: counts[team], reverse=True):
         print(f"{team}: {counts[team] * 100 / N:.1f}% chance of winning")
 
-
 def simulate_game(team1, team2):
-    """Simulate a game. Return True if team1 wins, False otherwise."""
     rating1 = team1["rating"]
     rating2 = team2["rating"]
     probability = 1 / (1 + 10 ** ((rating2 - rating1) / 600))
+
     return random.random() < probability
 
-
 def simulate_round(teams):
-    """Simulate a round. Return a list of winning teams."""
     winners = []
-
-    # Simulate games for all pairs of teams
     for i in range(0, len(teams), 2):
         if simulate_game(teams[i], teams[i + 1]):
             winners.append(teams[i])
@@ -57,16 +44,11 @@ def simulate_round(teams):
 
     return winners
 
-
 def simulate_tournament(teams):
-    """Simulate a tournament. Return name of winning team."""
-    # TODO
     while len(teams) > 1:
         simulate_round(teams)
         
-    return teams
-
-
+    return teams[0]
 
 if __name__ == "__main__":
     main()
