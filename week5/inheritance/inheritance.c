@@ -40,7 +40,6 @@ person *create_family(int generations) {
         createdPerson->alleles[0] = parent0->alleles[randomIntForAllele];
         createdPerson->alleles[1] = parent1->alleles[randomIntForAllele];
     }
-
     else {
         createdPerson->parents[0] = NULL;
         createdPerson->parents[1] = NULL;
