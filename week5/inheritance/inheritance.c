@@ -56,11 +56,10 @@ void free_family(person *person) {
 
         return;
     }
+
     free_family(person->parents[0]);
     free_family(person->parents[1]);
-
     free(person);
-
 }
 
 void print_family(person *person, int generation) {
@@ -72,17 +71,20 @@ void print_family(person *person, int generation) {
         printf(" ");
     }
 
-    if (generation == 0) {
-        printf("Child (Generation %i): blood type %c%c\n", generation, person->alleles[0], person->alleles[1]);
-    }
-    else if (generation == 1) {
-        printf("Parent (Generation %i): blood type %c%c\n", generation, person->alleles[0], person->alleles[1]);
-    }
-    else {
-        for (int i = 0; i < generation - 2; i++) {
-            printf("Great-");
-        }
-        printf("Grandparent (Generation %i): blood type %c%c\n", generation, person->alleles[0], person->alleles[1]);
+    switch (generation) {
+        case 0:
+            printf("Child (Generation %i): blood type %c%c\n", generation, person->alleles[0], person->alleles[1]);
+            break;
+        case 1:
+            printf("Parent (Generation %i): blood type %c%c\n", generation, person->alleles[0], person->alleles[1]);
+            break;
+        default:
+            for (int i = 0; i < generation - 2; i++) {
+                printf("Great-");
+            }
+
+            printf("Grandparent (Generation %i): blood type %c%c\n", generation, person->alleles[0], person->alleles[1]);
+            break;
     }
 
     print_family(person->parents[0], generation + 1);
@@ -91,13 +93,12 @@ void print_family(person *person, int generation) {
 
 char random_allele() {
     int r = rand() % 3;
-    if (r == 0) {
-        return 'A';
-    }
-    else if (r == 1) {
-        return 'B';
-    }
-    else {
-        return 'O';
+    switch(r) {
+        case 0:
+            return 'A';
+        case 1:
+            return 'B';
+        default: 
+            return 'O';
     }
 }
