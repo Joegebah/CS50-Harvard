@@ -69,10 +69,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
 
     for (int blurHeight = 0; blurHeight < height; blurHeight++) {
         for (int blurWidth = 0; blurWidth < width; blurWidth++) {
-            bool allSumsAreComputed = false;
-            int heightIterator = -1;
-            int widthIterator = -1;
-            float validCounter = 1.0;
+            int validCounter = 1;
             int originalBlueValue = image[blurHeight][blurWidth].rgbtBlue;
             int originalGreenValue = image[blurHeight][blurWidth].rgbtGreen;
             int originalRedValue = image[blurHeight][blurWidth].rgbtRed;
@@ -83,35 +80,24 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
             int sumOfGreen = originalGreenValue;
             int sumOfRed = originalRedValue;
             
-            while (!allSumsAreComputed) {
-                currentBlurBlueValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtBlue;
-                currentBlurGreenValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtGreen;
-                currentBlurRedValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtRed;
+            for (int heightIterator = -1; heightIterator <= 1; heightIterator++) {
+                for (int widthIterator = -1; widthIterator <= 1; widthIterator++) {
+                    bool adjacentPixelIsValid = (blurHeight + heightIterator) >= 0 && (blurHeight + heightIterator) < height && (blurWidth + widthIterator) >= 0 && (blurWidth + widthIterator) < width;
+                    bool isActuallyOriginalValue = heightIterator == blurHeight && widthIterator == blurWidth;
 
-                bool adjacentPixelIsValid = (blurHeight + heightIterator) >= 0 && (blurHeight + heightIterator) < height && (blurWidth + widthIterator) >= 0 && (blurWidth + widthIterator) < width;
-                bool isActuallyOriginalValue = heightIterator == blurHeight && widthIterator == blurWidth;
+                    if (adjacentPixelIsValid) {
+                        currentBlurBlueValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtBlue;
+                        currentBlurGreenValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtGreen;
+                        currentBlurRedValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtRed;
+                    }
 
-                if (adjacentPixelIsValid && !isActuallyOriginalValue) {
-                    sumOfBlue = sumOfBlue + currentBlurBlueValue;
-                    sumOfGreen = sumOfGreen + currentBlurGreenValue;
-                    sumOfRed = sumOfRed + currentBlurRedValue;
-                    validCounter++;
-                }
-
-                widthIterator++;
-                bool widthIsIterated = widthIterator == 1;
-                bool lastRowIsCurrentlyIterated = heightIterator == 1;
-                
-                if (widthIsIterated && !lastRowIsCurrentlyIterated) {
-                    heightIterator++;
-                    widthIterator = -1;
-                }
-
-                bool blockIsIteratedThrough = heightIterator == 1 && widthIterator == 1;
-
-                if (blockIsIteratedThrough) {
-                    allSumsAreComputed = true;
-                }
+                    if (adjacentPixelIsValid && !isActuallyOriginalValue) {
+                        sumOfBlue = sumOfBlue + currentBlurBlueValue;
+                        sumOfGreen = sumOfGreen + currentBlurGreenValue;
+                        sumOfRed = sumOfRed + currentBlurRedValue;
+                        validCounter++;
+                    }                    
+                }   
             }
 
             averageBlue = round(sumOfBlue / validCounter);
