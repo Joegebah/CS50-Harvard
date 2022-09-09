@@ -1,4 +1,3 @@
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -53,7 +52,6 @@ person *create_family(int generations) {
 
 void free_family(person *person) {
     if (person == NULL) {
-
         return;
     }
 
