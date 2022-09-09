@@ -110,7 +110,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
 
             for(int heightIterator = -1; heightIterator <= 1; heightIterator++) {
                 for (int widthIterator = -1; widthIterator <= 1; widthIterator++) {      
-                    bool adjacentPixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
+                    bool pixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
                     bool upperRowIsIterated = heightIterator == -1;
                     bool middleRowIsIterated = heightIterator == 0;
                     bool lowerRowIsIterated = heightIterator == -1;
@@ -121,16 +121,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                     bool lowerLeftNeighborIsAdressed = widthIterator == -1;
                     bool lowerRightNeighborIsAdressed = widthIterator == 1;
 
-                    if (adjacentPixelIsValid) {
-                        currentEdgeBlueValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
-                        currentEdgeGreenValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
-                        currentEdgeRedValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
+                    if (!pixelIsValid) {
+                        continue;
                     }
-                    else {
-                        currentEdgeBlueValue = 0;
-                        currentEdgeGreenValue = 0;
-                        currentEdgeRedValue = 0;
-                    }
+                    
+                    currentEdgeBlueValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
+                    currentEdgeGreenValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
+                    currentEdgeRedValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
 
                     if (upperRowIsIterated) {
                         if (upperLeftNeighborIsAdressed) {
@@ -190,7 +187,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
             
             for (int heightIterator = -1; heightIterator <= 1; heightIterator++) {
                 for (int widthIterator = -1; widthIterator <= 1; widthIterator++) {
-                    bool adjacentPixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
+                    bool pixelIsValid = (edgeHeight + heightIterator) >= 0 && (edgeHeight + heightIterator) < height && (edgeWidth + widthIterator) >= 0 && (edgeWidth + widthIterator) < width;
                     bool upperRowIsIterated = heightIterator = -1;
                     bool lowerRowIsIterated = heightIterator = 1;
                     bool upperLeftNeighborIsAdressed = widthIterator == -1;
@@ -200,16 +197,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                     bool upperRightNeighborIsAdressed = widthIterator == 1;
                     bool lowerRightNeighborIsAdressed = widthIterator == 1;
 
-                    if (adjacentPixelIsValid) {
-                        currentEdgeBlueValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
-                        currentEdgeGreenValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
-                        currentEdgeRedValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
+                    if (!pixelIsValid) {
+                        continue;
                     }
-                    else {
-                        currentEdgeBlueValue = 0;
-                        currentEdgeGreenValue = 0;
-                        currentEdgeRedValue = 0;
-                    }
+                    
+                    currentEdgeBlueValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtBlue;
+                    currentEdgeGreenValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtGreen;
+                    currentEdgeRedValue = copy[edgeHeight + heightIterator][edgeWidth + widthIterator].rgbtRed;
 
                     if (upperRowIsIterated) {
                         if (upperLeftNeighborIsAdressed) {
@@ -224,7 +218,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                             sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * -2);
                         }
                     
-                    if (upperRightNeighborIsAdressed) {
+                        if (upperRightNeighborIsAdressed) {
                             sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * -1);
                             sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * -1);
                             sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * -1);
@@ -238,18 +232,17 @@ void edges(int height, int width, RGBTRIPLE image[height][width]) {
                             sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 1);
                         }
 
-                    if (lowerMiddleNeighborIsAdressed) {
+                        if (lowerMiddleNeighborIsAdressed) {
                             sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * 2);
                             sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * 2);
                             sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 2);
                         }
 
-                    if (lowerRightNeighborIsAdressed) {
+                        if (lowerRightNeighborIsAdressed) {
                             sumOfBlueGy = sumOfBlueGy + (currentEdgeBlueValue * 1);
                             sumOfGreenGy = sumOfGreenGy + (currentEdgeGreenValue  * 1);
                             sumOfRedGy = sumOfRedGy + (currentEdgeRedValue  * 1);
                         }
-
                     }
                 }
                 
