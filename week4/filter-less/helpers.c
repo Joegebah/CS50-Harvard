@@ -69,32 +69,27 @@ void blur(int height, int width, RGBTRIPLE image[height][width]) {
 
     for (int blurHeight = 0; blurHeight < height; blurHeight++) {
         for (int blurWidth = 0; blurWidth < width; blurWidth++) {
-            int validCounter = 1;
-            int originalBlueValue = image[blurHeight][blurWidth].rgbtBlue;
-            int originalGreenValue = image[blurHeight][blurWidth].rgbtGreen;
-            int originalRedValue = image[blurHeight][blurWidth].rgbtRed;
+            int validCounter = 0;
             int currentBlurBlueValue;
             int currentBlurGreenValue;
             int currentBlurRedValue;
-            int sumOfBlue = originalBlueValue;
-            int sumOfGreen = originalGreenValue;
-            int sumOfRed = originalRedValue;
+            int sumOfBlue = 0;
+            int sumOfGreen = 0;
+            int sumOfRed = 0;
             
             for (int heightIterator = -1; heightIterator <= 1; heightIterator++) {
                 for (int widthIterator = -1; widthIterator <= 1; widthIterator++) {
-                    bool adjacentPixelIsValid = (blurHeight + heightIterator) >= 0 && (blurHeight + heightIterator) < height && (blurWidth + widthIterator) >= 0 && (blurWidth + widthIterator) < width;
+                    bool pixelIsValid = (blurHeight + heightIterator) >= 0 && (blurHeight + heightIterator) < height && (blurWidth + widthIterator) >= 0 && (blurWidth + widthIterator) < width;
 
-                    if (!adjacentPixelIsValid) {
+                    if (!pixelIsValid) {
                         continue;
                     }
-
-                    bool isActuallyOriginalValue = heightIterator == blurHeight && widthIterator == blurWidth;
 
                     currentBlurBlueValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtBlue;
                     currentBlurGreenValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtGreen;
                     currentBlurRedValue = image[blurHeight + heightIterator][blurWidth + widthIterator].rgbtRed;
 
-                    if (adjacentPixelIsValid && !isActuallyOriginalValue) {
+                    if (pixelIsValid) {
                         sumOfBlue = sumOfBlue + currentBlurBlueValue;
                         sumOfGreen = sumOfGreen + currentBlurGreenValue;
                         sumOfRed = sumOfRed + currentBlurRedValue;
