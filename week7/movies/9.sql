@@ -1,1 +1,3 @@
-SELECT DISTINCT name FROM people LEFT JOIN stars ON people.id = stars.person_id LEFT JOIN movies ON stars.movie_id = movies.id WHERE movies.year == 2004 ORDER BY birth;
+SELECT name FROM people
+WHERE id IN (SELECT DISTINCT person_id FROM stars 
+LEFT JOIN movies ON stars.movie_id = movies.id WHERE movies.year = 2004) ORDER BY people.birth;
