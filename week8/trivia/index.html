@@ -7,7 +7,41 @@
         <title>Trivia!</title>
         <script>
             // TODO: Add code to check answers to questions
-            
+            document.addEventListener('DOMContentLoaded', function()
+            {
+                let rightDecision = document.querySelector('.rightButton');
+                rightDecision.addEventListener('click', function()
+                {
+                    rightDecision.style.backgroundColor = 'green';
+                    document.querySelector('#output1').innerHTML = "Your answer is right!";
+                });
+
+                let wrongDecisions = document.querySelectorAll('.wrongButton');
+                for (let wrongButtonIterator = 0; wrongButtonIterator < wrongDecisions.length; wrongButtonIterator++) 
+                {
+                    //let wrongDecision = document.querySelector('.wrongButton');
+                    wrongDecisions[wrongButtonIterator].addEventListener('click', function()
+                    {
+                        wrongDecisions[wrongButtonIterator].style.backgroundColor = 'red';
+                        document.querySelector('#output1').innerHTML = "Your answer is wrong!";
+                    });
+                }
+
+                document.querySelector('#submit').addEventListener('click', function()
+                {
+                    let rightFreeAnswer = "Harry Potter";
+                    let textAnswer = document.querySelector('input')
+
+                    if (textAnswer.value === rightFreeAnswer) 
+                    {
+                        textAnswer.style.backgroundColor = 'green';
+                        document.querySelector('#output2').innerHTML = "Your answer is right!";
+                    } else {
+                        textAnswer.style.backgroundColor = 'red';
+                        document.querySelector('#output2').innerHTML = "Your answer is wrong!";
+                    }
+                });
+            });
         </script>
     </head>
     <body>
@@ -20,16 +54,26 @@
                 <h2>Part 1: Multiple Choice </h2>
                 <hr>
                 <!-- TODO: Add multiple choice question here -->
-                <h3>What is a banana? </h3>
-                <button type="submit">Banana</button>
-                <button type="submit">Apple</button>
-                <button type="submit">Hi</button>
+                <h3>What is a banana?</h3>
+
+                <button class="rightButton" type="submit">Banana</button>
+                <button class="wrongButton" type="submit">Apple</button>
+                <button class="wrongButton" type="submit">Hi</button>
+
+                <p id="output1"></p>
             </div>
 
             <div class="section">
                 <h2>Part 2: Free Response</h2>
                 <hr>
                 <!-- TODO: Add free response question here -->
+                <h3>What is the name of the famous wizard?</h3>
+
+                <form>
+                    <input type="text">
+                    <button id="submit">Submit</button>
+                    <p id="output2"></p>
+                </form>
             </div>
         </div>
     </body>
