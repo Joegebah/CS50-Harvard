@@ -3,14 +3,15 @@ body {
   color: grey;
   text-indent: 5px;
   font-style: italic;
+  opacity: 100;
 }
 
-p1 {
+p.welcome {
   font-size: 25px;
-}
-
-.text {
-  color: grey;
+  text-indent: 5px;
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration-thickness: auto;
 }
 
 .button {
