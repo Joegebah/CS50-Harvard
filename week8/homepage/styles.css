@@ -1,0 +1,25 @@
+body {
+  background-color: rgb(33, 26, 26);
+  color: grey;
+  text-indent: 5px;
+  font-style: italic;
+}
+
+p1 {
+  font-size: 25px;
+}
+
+.text {
+  color: grey;
+}
+
+.button {
+  background-color: rgb(57, 46, 46);
+  color: grey;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  position: relative;
+  right: 0px;
+  top: 0px;
+}
