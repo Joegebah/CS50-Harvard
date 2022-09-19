@@ -34,9 +34,15 @@ p1 {
 }
 
 .btn {
-background-color: black;
+  background-color: black;
+  color: grey;
+  border: none;
+}
+
+.btn:hover {
+  color: darkgray;
 }
 
 .fa-home {
-  background-color: white;
+  background-color: black;
 }
