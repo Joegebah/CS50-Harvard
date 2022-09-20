@@ -8,6 +8,10 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
         <title>Aleno's Social Media</title>
+        <script>
+            document.querySelector("#image-of-me").style.transform = "rotate(90deg)";
+        </script>
+
         <div class="vertical-line"></div>
         <nav>
           <button class="btn" onclick="window.location.href = 'index.html';"><i class="fa fa-home">Home</i></button>    
@@ -16,7 +20,7 @@
     
     <body>
         <p class="social-welcome">Verschiedene Links zu meinen Social Media Kanaelen<p>
-        <div class="my-image"><img src="img/my-image.png" alt="It's a me, Aleno."></div> 
+        <div class="my-image"><img id="image-of-me" src="img/my-image.png" alt="It's a me, Aleno."></div> 
         <div class="social-group">
             <img src="img\twitter-logo.jpeg" onclick="window.location.href = 'https://mobile.twitter.com/alenojankowsky';"><text>Twitter</text>
             <img src="img\instagram-logo.jpeg" onclick="window.location.href = 'https://www.instagram.com/alenojankowsky/';"><text>Instagram</text>

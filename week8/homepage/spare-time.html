@@ -8,11 +8,55 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
         <title>Aleno's Hobbys</title>
+        <script>
+
+            function vanishArrowAndButton() {
+                let arrowElement = document.getElementById("arrow-id");
+                let buttonToShowQuiz = document.getElementById("button-to-show-quiz");
+
+                arrowElement.style.display = "none";
+                buttonToShowQuiz.style.display = "none";
+                
+            }
+
+            function showQuiz() {
+                let quizQuestion = document.getElementById("question")
+                let quizForm = document.getElementById("lego-question");
+                    quizForm.style.display = "block";
+                    quizQuestion.style.display = "block";
+            }
+
+            function evaluateQuiz() {
+                let rightFreeAnswer = "Legolas";
+                let textAnswer = document.querySelector('input');
+
+                if (textAnswer.value === rightFreeAnswer) {
+                    textAnswer.style.backgroundColor = 'green';
+                    document.querySelector('#hobbys').innerHTML = "Ich habe keine Hobbys (KEKW). Spaß beiseite, meine Hobbys sind: Zocken, meine Katze lieb haben, multimediale Unterhaltung."
+                } else {
+                    textAnswer.style.backgroundColor = 'red';
+                    document.querySelector('#hobbys').innerHTML = "Einfach faaaaalsch. mmmmmmm."
+                }
+            }
+
+        </script>
     </head>
     <nav>
         <button class="btn" onclick="window.location.href = 'index.html';"><i class="fa fa-home">Home</i></button>    
     </nav>
     <body>
-
+        <p1>Moechten Sie meine Hobbys erfahren? Hohoho, dafuer muessen Sie zuerst ein Quiz absolvieren:</p1>
+        <button onclick="vanishArrowAndButton(), showQuiz()" id="button-to-show-quiz" class="button-to-show-quiz"></button>
+        <div id="arrow-id" class="left-arrow"></div>
+        <div>
+            <question id="question">Wie heißt meine Katze?</question>
+            <form id="lego-question">
+                <input type="text">
+                <button class="eveluate-button" onclick="evaluateQuiz()"></button>
+            </form>
+        </div>
+        <div>
+            <p id="hobbys" class="hobby-text"></p>
+        </div>
     </body>
 </html>
