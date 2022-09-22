@@ -29,13 +29,15 @@
             function evaluateQuiz() {
                 let rightFreeAnswer = "Legolas";
                 let textAnswer = document.querySelector('input');
+                let quizDiv = document.getElementById("hobby-div");
 
                 if (textAnswer.value === rightFreeAnswer) {
                     textAnswer.style.backgroundColor = 'green';
-                    document.querySelector('#hobbys').innerHTML = "Ich habe keine Hobbys (KEKW). Spaß beiseite, meine Hobbys sind: Zocken, meine Katze lieb haben, multimediale Unterhaltung."
+                    document.querySelector('#hobby-text').innerHTML = "Ich habe keine Hobbys (KEKW). Spaß beiseite, meine Hobbys sind: <br/> Zocken, meine Katze lieb haben, multimediale Unterhaltung."
+                    quizDiv.style.display = "block";
                 } else {
                     textAnswer.style.backgroundColor = 'red';
-                    document.querySelector('#hobbys').innerHTML = "Einfach faaaaalsch. mmmmmmm."
+                    document.querySelector('#hobby-text').innerHTML = "Einfach faaaaalsch. mmmmmmm."
                 }
             }
 
@@ -52,11 +54,14 @@
             <question id="question">Wie heißt meine Katze?</question>
             <form id="lego-question">
                 <input type="text">
-                <button class="eveluate-button" onclick="evaluateQuiz()"></button>
+                <button type="button" class="eveluate-button" onclick="evaluateQuiz()"></button>
             </form>
         </div>
-        <div>
-            <p id="hobbys" class="hobby-text"></p>
+        <p id="hobby-text" class="hobby-text"></p>
+        <div id="hobby-div" class="hobby-div">
+            <img src="img/hobby-gaming.jpeg">
+            <img src="img/Lego2.jpg">
+            <img src="img/hobby-multimedia.jpeg">
         </div>
     </body>
 </html>
