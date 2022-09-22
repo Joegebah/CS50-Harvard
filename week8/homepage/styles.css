@@ -65,6 +65,8 @@ p1 {
 .resumee-group {
   display: flex;
   justify-content: left;
+  position: relative;
+  top: 50px;
 }
 
 .resumee-group li {
