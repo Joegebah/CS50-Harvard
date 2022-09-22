@@ -9,7 +9,6 @@
         <link href="styles.css" rel="stylesheet">
         <title>Aleno's Hobbys</title>
         <script>
-
             function vanishArrowAndButton() {
                 let arrowElement = document.getElementById("arrow-id");
                 let buttonToShowQuiz = document.getElementById("button-to-show-quiz");
@@ -33,14 +32,13 @@
 
                 if (textAnswer.value === rightFreeAnswer) {
                     textAnswer.style.backgroundColor = 'green';
-                    document.querySelector('#hobby-text').innerHTML = "Ich habe keine Hobbys (KEKW). Spaß beiseite, meine Hobbys sind: <br/> Zocken, meine Katze lieb haben, multimediale Unterhaltung."
+                    document.querySelector('#hobby-text').innerHTML = "Ich habe keine Hobbys (KEKW). Spaß beiseite, meine Hobbys sind: <br> &nbsp Zocken, meine Katze lieb haben, multimediale Unterhaltung.<br/>"
                     quizDiv.style.display = "block";
                 } else {
                     textAnswer.style.backgroundColor = 'red';
                     document.querySelector('#hobby-text').innerHTML = "Einfach faaaaalsch. mmmmmmm."
                 }
             }
-
         </script>
     </head>
     <nav>
