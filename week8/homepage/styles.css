@@ -158,14 +158,14 @@ i {
   padding: 0.375rem 0.75rem;
   position: relative;
   top: 10px;
-  left: 47%;
+  left: 54%;
   display: block;
 }
 
 .left-arrow {
   position: absolute;
-  left: 50%;
-  top: 4%;
+  left: 57%;
+  top: 37px;
   width: 0;
   height: 30px;
   border: 2px solid;
