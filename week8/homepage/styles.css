@@ -214,14 +214,14 @@ input[type="text"] {
   border: 2px solid white;
 }
 
-.vertical-line {
+.body__vertical-line {
   height: 860px;
   border-left: 2px solid rgb(77, 57, 57);
   position: absolute;
   left: 5%;
 }
 
-.horizontal-line {
+.body__horizontal-line {
   width: 1680px;
   border-top: 2px solid rgb(77, 57, 57);
   position: absolute;
