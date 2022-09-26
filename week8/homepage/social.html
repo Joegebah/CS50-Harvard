@@ -8,24 +8,25 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
         <title>Aleno's Social Media</title>
-        <script>
-            document.querySelector("#image-of-me").style.transform = "rotate(90deg)";
-        </script>
-
         <div class="vertical-line"></div>
-        <nav>
-          <button class="btn" onclick="window.location.href = 'index.html';"><i class="fa fa-home">Home</i></button>    
-        </nav>
     </head>
-    
     <body>
-        <p class="social-welcome">Verschiedene Links zu meinen Social Media Kanaelen<p>
-        <div class="my-image"><img id="image-of-me" src="img/my-image.png" alt="It's a me, Aleno."></div> 
+        <nav>
+            <button class="body__nav__home-button" onclick="window.location.href = 'index.html';">
+                <i class="fa fa-home">Home</i>
+            </button>    
+        </nav>
+        <div>
+            <p class="body__div__social-introductory-text">Verschiedene Links zu meinen Social Media Kanaelen</p>
+        </div>
+        <div class="body__div__my-image">
+            <img id="image-of-me" class="body__div__my-image__image" src="img/my-image.png" alt="It's a me, Aleno.">
+        </div> 
         <div class="social-group">
-            <img src="img\twitter-logo.jpeg" onclick="window.location.href = 'https://mobile.twitter.com/alenojankowsky';"><text>Twitter</text>
-            <img src="img\instagram-logo.jpeg" onclick="window.location.href = 'https://www.instagram.com/alenojankowsky/';"><text>Instagram</text>
-            <img src="img\twitch-logo.jpeg" onclick="window.location.href = 'https://www.twitch.tv/alenojankowsky';"><text>Twitch</text>
-            <img src="img\linkedin-logo.jpeg" onclick="window.location.href = 'https://www.linkedin.com/in/aleno-jankowsky-b734b4247/';"><text>LinkedIn</text>
+            <img class="body__social-group__image" src="img\twitter-logo.jpeg" onclick="window.location.href = 'https://mobile.twitter.com/alenojankowsky';"><text>Twitter</text>
+            <img class="body__social-group__image" src="img\instagram-logo.jpeg" onclick="window.location.href = 'https://www.instagram.com/alenojankowsky/';"><text>Instagram</text>
+            <img class="body__social-group__image" src="img\twitch-logo.jpeg" onclick="window.location.href = 'https://www.twitch.tv/alenojankowsky';"><text>Twitch</text>
+            <img class="body__social-group__image" src="img\linkedin-logo.jpeg" onclick="window.location.href = 'https://www.linkedin.com/in/aleno-jankowsky-b734b4247/';"><text>LinkedIn</text>
             <div class="horizontal-line"></div>
         </div>
     </body>
