@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 
 <html lang="de">
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-        <link href="styles.css" rel="stylesheet">
-        <title>Trivia!</title>
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <div class="body__header">
-            <h1>Trivia!</h1>
-        </div>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <title>Trivia!</title>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="body__header">
+      <h1>Trivia!</h1>
+    </div>
+    <div class="body__container">
+      <div class="body__container__section">
+        <h2>Part 1: Multiple Choice </h2>
+        <hr>
+        <h3>What is a banana?</h3>
 
-        <div class="body__container">
-            <div class="body__container__section">
-                <h2>Part 1: Multiple Choice </h2>
-                <hr>
-                <h3>What is a banana?</h3>
+        <button class="rightButton" type="submit">Banana</button>
+        <button class="wrongButton" type="submit">Apple</button>
+        <button class="wrongButton" type="submit">Hi</button>
 
-                <button class="rightButton" type="submit">Banana</button>
-                <button class="wrongButton" type="submit">Apple</button>
-                <button class="wrongButton" type="submit">Hi</button>
+        <p id="output1"></p>
+      </div>
 
-                <p id="output1"></p>
-            </div>
+          <div class="body__container__section">
+              <h2>Part 2: Free Response</h2>
+              <hr>
+              <h3>What is the name of the famous wizard?</h3>
 
-            <div class="body__container__section">
-                <h2>Part 2: Free Response</h2>
-                <hr>
-                <h3>What is the name of the famous wizard?</h3>
-
-                <form>
-                    <input type="text">
-                    <button id="submit" type="button">Submit</button>
-                    <p id="output2"></p>
-                </form>
-            </div>
-        </div>
-    </body>
+              <form>
+                  <input type="text">
+                  <button id="submit" type="button">Submit</button>
+                  <p id="output2"></p>
+              </form>
+          </div>
+      </div>
+  </body>
 </html>
