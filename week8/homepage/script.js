@@ -4,14 +4,13 @@ function vanishArrowAndButton() {
 
   arrowElement.style.display = "none";
   buttonToShowQuiz.style.display = "none";
-  
 }
 
 function showQuiz() {
   let quizQuestion = document.getElementById("question")
   let quizForm = document.getElementById("body__div__lego-question");
-      quizForm.style.display = "block";
-      quizQuestion.style.display = "block";
+  quizForm.style.display = "block";
+  quizQuestion.style.display = "block";
 }
 
 function evaluateQuiz() {
