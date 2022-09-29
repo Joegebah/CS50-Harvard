@@ -172,6 +172,14 @@ i {
   font-size: 15pt;
 }
 
+.body__hint {
+  display: none;
+  position: relative;
+  left: 5px;
+  top: 690px;
+  font-size: 15pt;
+}
+
 .body__input[type="text"] {
   line-height: 1;
   background-color: rgb(108, 88, 88);

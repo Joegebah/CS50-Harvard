@@ -9,8 +9,10 @@ function vanishArrowAndButton() {
 function showQuiz() {
   let quizQuestion = document.getElementById("question")
   let quizForm = document.getElementById("body__lego-question");
+  let quizHint = document.getElementById("hint");
   quizForm.style.display = "block";
   quizQuestion.style.display = "block";
+  quizHint.style.display = "block";
 }
 
 function evaluateQuiz() {
