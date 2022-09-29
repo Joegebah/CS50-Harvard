@@ -11,25 +11,25 @@
   </head>
   <body>
     <nav>
-      <button class="body__nav__home-button" onclick="window.location.href = 'index.html';"><i class="fa fa-home">Home</i></button>    
+      <button class="body__home-button" onclick="window.location.href = 'index.html';"><i class="fa fa-home">Home</i></button>    
     </nav>
     <div>
-      <p1 class="body__div__introductory-text">Moechten Sie meine Hobbys erfahren? Hohoho, dafuer muessen Sie zuerst ein Quiz absolvieren:</p1>
+      <p1 class="body__introductory-text">Moechten Sie meine Hobbys erfahren? Hohoho, dafuer muessen Sie zuerst ein Quiz absolvieren:</p1>
     </div>
     <button class="body__button-to-show-quiz" onclick="vanishArrowAndButton(), showQuiz()" id="button-to-show-quiz"></button>
     <div class="body__left-arrow" id="arrow-id"></div>
     <div>
-      <p class="body__div__question" id="question">Wie heißt meine Katze?</p>
-      <form id="body__div__lego-question">
-        <input type="text">
-        <button type="button" class="body__div__form__eveluate-button" onclick="evaluateQuiz()"></button>
+      <p class="body__question" id="question">Wie heißt meine Katze?</p>
+      <form id="body__lego-question">
+        <input type="text" class="body__input">
+        <button type="button" class="body__eveluate-button" onclick="evaluateQuiz()"></button>
       </form>
     </div>
     <p id="hobby-text" class="body__hobby-text"></p>
-    <div id="hobby-div" class="body__hobby-div">
-      <img class="body__hobby-div__image" src="img/hobby-gaming.jpeg">
-      <img class="body__hobby-div__image" src="img/Lego2.jpg">
-      <img class="body__hobby-div__image" src="img/hobby-multimedia.jpeg">
+    <div id="hobby-div" class="body__hobby-list">
+      <img class="hobby-div__image" src="img/hobby-gaming.jpeg">
+      <img class="hobby-div__image" src="img/Lego2.jpg">
+      <img class="hobby-div__image" src="img/hobby-multimedia.jpeg">
     </div>
   </body>
 </html>

@@ -8,7 +8,7 @@ function vanishArrowAndButton() {
 
 function showQuiz() {
   let quizQuestion = document.getElementById("question")
-  let quizForm = document.getElementById("body__div__lego-question");
+  let quizForm = document.getElementById("body__lego-question");
   quizForm.style.display = "block";
   quizQuestion.style.display = "block";
 }
