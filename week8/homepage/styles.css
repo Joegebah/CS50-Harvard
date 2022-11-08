@@ -222,6 +222,11 @@ i {
   border: 2px solid white;
 }
 
+.my-image__image {
+  width: 210px;
+  height: 280px;
+}
+
 .body__vertical-line {
   height: 860px;
   border-left: 2px solid rgb(77, 57, 57);
