@@ -1,0 +1,41 @@
+// Blur image
+void blur(int height, int width, RGBTRIPLE image[height][width])
+{
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            int RD = 0;
+            int GN = 0;
+            int BL = 0;
+            int count = 0;
+
+            for (int k = -1; k < 2; k++)
+            {
+                for (int l = -1; l < 2; l++)
+                {
+                    int h = i + k;
+                    int w = j + l;
+
+                    // Check if calculated indices are within bounds
+                    if (h >= 0 && h < height && w >= 0 && w < width)
+                    {
+                        RD += image[h][w].rgbtRed;
+                        GN += image[h][w].rgbtGreen;
+                        BL += image[h][w].rgbtBlue;
+                        count++;
+                    }
+                }
+            }
+
+            float avgRD = (float)RD / count;
+            float avgGN = (float)GN / count;
+            float avgBL = (float)BL / count;
+
+            image[i][j].rgbtRed = avgRD;
+            image[i][j].rgbtGreen = avgGN;
+            image[i][j].rgbtBlue = avgBL;
+        }
+    }
+}
+// WHAT IS WRONG WITH THIS ONE?
